@@ -6,7 +6,7 @@ use ErrorException;
 use Models\TreeType;
 use System\View;
 
-class HomeController
+class GardenController
 {
     public function index(): void
     {
@@ -16,11 +16,12 @@ class HomeController
     /**
      * @throws ErrorException
      */
-    public function main(): void
+    public function run(): void
     {
         $treeType = new TreeType();
-        $treeType->createTable();
+        $treeType->create();
+        $treeType->fillTable();
 
-        View::render('index');
+        View::render('main');
     }
 }

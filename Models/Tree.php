@@ -5,9 +5,9 @@ namespace Models;
 use PDO;
 use PDOException;
 
-class TreeType extends AbstractModel
+class Tree
 {
-    private const TABLE = 'tree_type';
+    private const TABLE = 'tree';
 
     private const TYPES = [
         'apple' => [
@@ -20,10 +20,20 @@ class TreeType extends AbstractModel
         ]
     ];
 
-    public function create(): void
+    public function createTable(): void
     {
-        $sql = 'CREATE TABLE `garden`.`' . self::TABLE . '` (`id` INT(11) NOT NULL AUTO_INCREMENT, `type` VARCHAR(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, `fruit_min_weight` INT(6) NOT NULL, `fruit_max_weight` INT(6) NOT NULL, PRIMARY KEY (`id`), UNIQUE `UNIQ_TYPE` (`type`)) ENGINE = InnoDB;';
-        $this->createTable(self::TABLE, $sql);
+        $dsn = 'mysql:host=mysql;dbname=garden';
+        $pdo = new PDO(dsn: $dsn, username: 'root', password: 'password');
+        try {
+            $tableExists = $pdo->query('SELECT 1 FROM ' . self::TABLE . ' LIMIT 1');
+        } catch (PDOException $exception) {
+            $tableExists = false;
+        }
+
+        if ($tableExists === false) {
+            $sql = 'CREATE TABLE `garden`.`' . self::TABLE . '` (`id` INT(11) NOT NULL AUTO_INCREMENT, `type` VARCHAR(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, `fruit_min_weight` INT(6) NOT NULL, `fruit_max_weight` INT(6) NOT NULL, PRIMARY KEY (`id`), UNIQUE `UNIQ_TYPE` (`type`)) ENGINE = InnoDB;';
+            $pdo->exec($sql);
+        }
     }
 
     public function fillTable(): bool
