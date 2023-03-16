@@ -1,0 +1,7 @@
+/.docker/log/
+/.idea
+/.docker/conf/postgres/pgadmin/
+/.docker/conf/mysql/db-data/
+/.docker/conf/postgres/backup/
+
+/vendor/

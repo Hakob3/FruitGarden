@@ -1,0 +1,32 @@
+version: '3'
+services:
+  php:
+    build: .docker
+    restart: always
+    volumes:
+      - .:/var/www/
+  nginx:
+    image: nginx:latest
+    restart: always
+    depends_on:
+      - php
+      - mysql
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www/
+      - ./.docker/conf/nginx:/etc/nginx/conf.d
+  mysql:
+    image: mariadb:10.6
+    environment:
+      MYSQL_DATABASE: 'garden'
+      MYSQL_ROOT_PASSWORD: 'password'
+    volumes:
+      - ./.docker/conf/mysql/db-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8282:80
+    environment:
+      PMA_HOST: mysql
