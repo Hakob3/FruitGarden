@@ -2,26 +2,26 @@
 
 namespace System;
 
-use Controllers\HomeController;
 use ErrorException;
+use App\Controllers\GardenController;
 
 class App
 {
     /**
+     * @return void
      * @throws ErrorException
      */
     public static function run(): void
     {
         $path = $_SERVER['REQUEST_URI'];
         if ($path === '/') {
-            (new HomeController())->index();
+            (new GardenController())->run();
         } else {
             $pathParts = explode('/', $path);
             $controller = $pathParts[1];
             $action = $pathParts[2];
 
-            $controllerClass = 'Controllers\\' . ucfirst($controller) . 'Controller';
-
+            $controllerClass = 'App\\Controllers\\' . ucfirst($controller) . 'Controller';
             if (!class_exists($controllerClass)) {
                 throw new ErrorException('Controller does not exist!');
             }

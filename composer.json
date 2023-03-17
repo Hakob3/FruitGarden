@@ -1,9 +1,11 @@
 {
   "autoload": {
     "psr-4": {
-      "Controllers\\": "Controllers/",
-      "System\\": "System/",
-      "Models\\": "Models/"
+      "App\\": "src/",
+      "System\\": "System/"
     }
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }
