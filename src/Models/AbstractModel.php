@@ -19,9 +19,9 @@ abstract class AbstractModel
     /**
      * @param $table
      * @param string $sql
-     * @return void
+     * @return bool
      */
-    protected function createTable($table, string $sql): void
+    protected function createTable($table, string $sql): bool
     {
         try {
             $tableExists = $this->pdo->query('SELECT 1 FROM ' . $table . ' LIMIT 1');
@@ -34,7 +34,8 @@ abstract class AbstractModel
             $this->pdo->exec(sprintf('DROP TABLE %s', $table));
             $this->pdo->exec('SET FOREIGN_KEY_CHECKS = 1;');
         }
-
         $this->pdo->exec($sql);
+
+        return true;
     }
 }

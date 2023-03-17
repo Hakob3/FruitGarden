@@ -4,13 +4,13 @@ namespace App\Models;
 
 class TreeType extends AbstractModel
 {
-    /** @var string  */
+    /** @var string */
     private const TABLE = 'tree_type';
 
     /**
-     * @return void
+     * @return bool
      */
-    public function create(): void
+    public function create(): bool
     {
         $sql = 'CREATE TABLE `garden`.`' . self::TABLE . '` (`id` INT(11) NOT NULL AUTO_INCREMENT,
                `techName` VARCHAR(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
@@ -18,6 +18,6 @@ class TreeType extends AbstractModel
                `fruit_min_weight` INT(6) NOT NULL, `fruit_max_weight` INT(6) NOT NULL, PRIMARY KEY (`id`),
                 UNIQUE `UNIQ_TYPE` (`techName`)) ENGINE = InnoDB;';
 
-        $this->createTable(self::TABLE, $sql);
+        return $this->createTable(self::TABLE, $sql);
     }
 }

@@ -11,7 +11,7 @@ use System\View;
 
 class GardenController
 {
-    /** @var string  */
+    /** @var string */
     public const TITLE = 'Добро пожаловать в наш сад';
 
     /**
@@ -23,9 +23,10 @@ class GardenController
         $treeType = new TreeType();
         $gardenService = new GardenService();
         $gardenSeeder = new GardenSeeder();
+        $tree = new Tree();
+
         $treeType->create();
         $gardenSeeder->loadTreeTypes();
-        $tree = new Tree();
         $tree->create();
         $gardenSeeder->loadTrees();
         View::render('garden', [

@@ -39,20 +39,20 @@ class GardenSeeder extends AbstractGardenSeeder
     ];
 
     /**
-     * @return void
+     * @return bool
      */
-    public function loadTreeTypes(): void
+    public function loadTreeTypes(): bool
     {
-        $this->fillTable(
+       return $this->fillTable(
             'tree_type',
             self::TYPES
         );
     }
 
     /**
-     * @return void
+     * @return bool
      */
-    public function loadTrees(): void
+    public function loadTrees(): bool
     {
         $data = [];
 
@@ -68,6 +68,6 @@ class GardenSeeder extends AbstractGardenSeeder
                 ];
             }
         }
-        $this->fillTable('tree', $data);
+        return $this->fillTable('tree', $data);
     }
 }

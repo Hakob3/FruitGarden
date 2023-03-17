@@ -6,16 +6,16 @@ use PDO;
 
 class Tree extends AbstractModel
 {
-    /** @var string  */
+    /** @var string */
     private const TABLE = 'tree';
 
-    /** @var string  */
+    /** @var string */
     public const FRUIT_MASS_UNIT = 'гр.';
 
     /**
-     * @return void
+     * @return bool
      */
-    public function create(): void
+    public function create(): bool
     {
         $sql = 'CREATE TABLE `garden`.`' . self::TABLE . '` (`id` INT(11) NOT NULL AUTO_INCREMENT,
          `tree_type` INT(11) NOT NULL, `fruit_count` INT(6),
@@ -23,6 +23,6 @@ class Tree extends AbstractModel
           ON DELETE CASCADE
            ) ENGINE = InnoDB;';
 
-        $this->createTable(self::TABLE, $sql);
+        return $this->createTable(self::TABLE, $sql);
     }
 }
